@@ -1,0 +1,37 @@
+{% extends "catalog/base.html" %}
+{% block title %}Productos{% endblock %}
+{% block content %}
+<section>
+    <h1 style="font-size:32px; margin-bottom:8px;">Agente de Guia de ventas Ginebra</h1>
+    <p class="muted" style="margin-top:0; margin-bottom:16px;">Gestiona productos y categorías desde este panel.</p>
+    <div style="display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
+        <a href="{% url 'product_create' %}" class="btn">Añadir producto</a>
+        <a href="{% url 'category_list' %}" class="btn">Gestionar categorías</a>
+    </div>
+</section>
+
+{% if products %}
+<div class="grid">
+    {% for product in products %}
+    <div class="card product-card">
+        <h3 style="margin-top:0;">{{ product.name }}</h3>
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <div style="height:160px; border:1px dashed var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#777;">
+                Sin imagen
+            </div>
+        {% endif %}
+        <p class="muted">{{ product.category.name }}</p>
+        <p><strong>${{ product.price }}</strong></p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="{% url 'product_edit' product.pk %}" class="btn">Editar</a>
+            <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Eliminar</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p class="muted">Aún no hay productos creados.</p>
+{% endif %}
+{% endblock %}

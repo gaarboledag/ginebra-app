@@ -1,0 +1,15 @@
+{% extends "catalog/base.html" %}
+{% block title %}Eliminar categoría{% endblock %}
+{% block content %}
+<div class="card">
+    <h3 style="margin-top:0;">Eliminar categoría</h3>
+    <p>¿Seguro que deseas eliminar <strong>{{ object.name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div style="display:flex; gap:10px;">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="{% url 'category_list' %}" class="btn">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

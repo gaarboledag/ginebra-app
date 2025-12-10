@@ -1,0 +1,47 @@
+{% extends "catalog/base.html" %}
+{% block title %}Producto{% endblock %}
+{% block content %}
+<h2 style="margin-top:0;">{% if object %}Editar{% else %}Crear{% endif %} producto</h2>
+<div class="card">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            <label for="{{ form.name.id_for_label }}">Nombre</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+        <div>
+            <label for="{{ form.description.id_for_label }}">Descripción</label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+        <div>
+            <label for="{{ form.category.id_for_label }}">Categoría</label>
+            {{ form.category }}
+            {{ form.category.errors }}
+        </div>
+        <div>
+            <label for="{{ form.price.id_for_label }}">Precio</label>
+            {{ form.price }}
+            {{ form.price.errors }}
+        </div>
+        <div>
+            <label for="{{ form.image.id_for_label }}">Imagen</label>
+            {% if object and object.image %}
+                <div class="muted" style="margin-bottom:6px;">Imagen actual: <a href="{{ object.image.url }}" target="_blank">ver</a></div>
+            {% endif %}
+            {{ form.image }}
+            {{ form.image.errors }}
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+            {{ form.is_active }} <label for="{{ form.is_active.id_for_label }}" style="font-weight:400;">Activo</label>
+            {{ form.is_active.errors }}
+        </div>
+        <div style="display:flex; gap:10px; margin-top:12px;">
+            <button type="submit" class="btn">Guardar</button>
+            <a href="{% url 'product_list' %}" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

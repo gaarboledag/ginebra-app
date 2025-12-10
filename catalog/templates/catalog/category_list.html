@@ -1,0 +1,35 @@
+{% extends "catalog/base.html" %}
+{% block title %}Categorías{% endblock %}
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2 style="margin-top:0;">Categorías</h2>
+    <a href="{% url 'category_create' %}" class="btn">Nueva categoría</a>
+</div>
+<div class="card">
+    {% if categories %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Slug</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.slug }}</td>
+                <td>
+                    <a href="{% url 'category_edit' category.pk %}" class="btn">Editar</a>
+                    <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="muted" style="margin:0;">Aún no hay categorías.</p>
+    {% endif %}
+</div>
+{% endblock %}

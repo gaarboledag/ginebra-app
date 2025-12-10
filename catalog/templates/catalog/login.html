@@ -1,0 +1,21 @@
+{% extends "catalog/base.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+<div style="display:flex; align-items:center; justify-content:center; min-height:70vh;">
+    <div class="card" style="width: 100%; max-width: 400px;">
+        <h2 style="margin-top:0;">Accede a tu cuenta</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" required autofocus>
+            </div>
+            <div>
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn" style="width:100%; text-align:center;">Iniciar sesión</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

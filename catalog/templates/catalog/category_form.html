@@ -1,0 +1,26 @@
+{% extends "catalog/base.html" %}
+{% block title %}Categoría{% endblock %}
+{% block content %}
+<h2 style="margin-top:0;">{% if object %}Editar{% else %}Crear{% endif %} categoría</h2>
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            <label for="{{ form.name.id_for_label }}">Nombre</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+        <div>
+            <label for="{{ form.slug.id_for_label }}">Slug (opcional)</label>
+            {{ form.slug }}
+            {{ form.slug.errors }}
+            <p class="muted">Si lo dejas vacío, se generará automáticamente.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button type="submit" class="btn">Guardar</button>
+            <a href="{% url 'category_list' %}" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
