@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--yawll6ew_v$6n&n=%m#+gxd)34$$#_nl%_%bk_)&s!j7f=n==
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["ginebra.iacol.online"]
 
 
 # Application definition
