@@ -34,13 +34,15 @@ else:
     print("DEBUG desactivado: modo produccion")
 
 # Seguridad extra recomendada para producción
+SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT", "1").lower() in ("1", "true", "yes", "on")
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_SSL_REDIRECT = True  # redirige HTTP → HTTPS
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    if SECURE_SSL_REDIRECT:
+        SECURE_SSL_REDIRECT = True  # redirige HTTP → HTTPS
+        SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 ALLOWED_HOSTS = ["ginebra.iacol.online"]
