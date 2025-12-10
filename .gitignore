@@ -1,0 +1,30 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Django / DB
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
