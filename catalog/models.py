@@ -24,7 +24,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-ALLOWED_IMAGES = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
+ALLOWED_IMAGES = {'.jpg', '.jpeg', '.jpe', '.jfif', '.png', '.gif', '.webp'}
 ALLOWED_VIDEOS = {'.mp4', '.mov', '.avi', '.mkv', '.webm'}
 
 
