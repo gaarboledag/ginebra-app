@@ -22,8 +22,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--yawll6ew_v$6n&n=%m#+gxd)34$$#_nl%_%bk_)&s!j7f=n=='
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import os
+
+# Leer DEBUG desde variables de entorno
+# Acepta: 0, false, no, off → False | 1, true, yes, on → True
+DEBUG = os.getenv("DEBUG", "0").lower() in ("1", "true", "yes", "on")
+
+if DEBUG:
+    print("⚠️ WARNING: DEBUG está ACTIVADO (modo desarrollo)")
+else:
+    print("🔒 DEBUG desactivado: modo producción")
+
+# Seguridad extra recomendada para producción
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_SSL_REDIRECT = True  # redirige HTTP → HTTPS
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 ALLOWED_HOSTS = ["ginebra.iacol.online"]
 
@@ -73,7 +91,6 @@ WSGI_APPLICATION = 'ginebra_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-import os
 
 DATABASES = {
     'default': {
