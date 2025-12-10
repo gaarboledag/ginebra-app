@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import Category, Product, ProductMedia
+
+
+class ProductMediaInline(admin.TabularInline):
+    model = ProductMedia
+    extra = 0
+    fields = ('file', 'media_type', 'position', 'created_at')
+    readonly_fields = ('media_type', 'created_at')
 
 
 @admin.register(Category)
@@ -15,5 +22,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category', 'is_active')
     search_fields = ('name', 'description')
     autocomplete_fields = ('category',)
+    inlines = (ProductMediaInline,)
 
 # Register your models here.

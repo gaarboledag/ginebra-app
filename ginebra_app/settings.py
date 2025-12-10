@@ -29,9 +29,9 @@ import os
 DEBUG = os.getenv("DEBUG", "0").lower() in ("1", "true", "yes", "on")
 
 if DEBUG:
-    print("⚠️ WARNING: DEBUG está ACTIVADO (modo desarrollo)")
+    print("WARNING: DEBUG activado (modo desarrollo)")
 else:
-    print("🔒 DEBUG desactivado: modo producción")
+    print("DEBUG desactivado: modo produccion")
 
 # Seguridad extra recomendada para producción
 if not DEBUG:

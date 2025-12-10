@@ -12,12 +12,12 @@
             {{ form.name.errors }}
         </div>
         <div>
-            <label for="{{ form.description.id_for_label }}">Descripción</label>
+            <label for="{{ form.description.id_for_label }}">Descripcion</label>
             {{ form.description }}
             {{ form.description.errors }}
         </div>
         <div>
-            <label for="{{ form.category.id_for_label }}">Categoría</label>
+            <label for="{{ form.category.id_for_label }}">Categoria</label>
             {{ form.category }}
             {{ form.category.errors }}
         </div>
@@ -27,13 +27,47 @@
             {{ form.price.errors }}
         </div>
         <div>
-            <label for="{{ form.image.id_for_label }}">Imagen</label>
-            {% if object and object.image %}
-                <div class="muted" style="margin-bottom:6px;">Imagen actual: <a href="{{ object.image.url }}" target="_blank">ver</a></div>
-            {% endif %}
-            {{ form.image }}
-            {{ form.image.errors }}
+            <label for="{{ media_upload_form.files.id_for_label }}">Agregar medios (multiples archivos)</label>
+            <p class="muted" style="margin:4px 0 8px;">Admite imagenes (JPG, PNG, GIF, WEBP) y videos (MP4, MOV, AVI, MKV, WEBM) hasta 20MB cada uno.</p>
+            {{ media_upload_form.files }}
+            {{ media_upload_form.files.errors }}
         </div>
+        {% if media_formset %}
+            {{ media_formset.management_form }}
+            <div class="card" style="background:#fff; border-style:dashed;">
+                <h4 style="margin-top:0;">Medios existentes</h4>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                    {% for form in media_formset %}
+                        {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+                        <div style="display:flex; gap:12px; align-items:flex-start; border:1px solid var(--accent); padding:10px; border-radius:8px; background:#fafafa;">
+                            <div style="width:120px;">
+                                {% if form.instance.media_type == 'image' %}
+                                    <img src="{{ form.instance.file.url }}" alt="{{ form.instance.file.name }}" style="width:120px; height:90px; object-fit:cover; border-radius:6px;">
+                                {% else %}
+                                    <video src="{{ form.instance.file.url }}" style="width:120px; height:90px; object-fit:cover; border-radius:6px;" muted playsinline></video>
+                                {% endif %}
+                            </div>
+                            <div style="flex:1; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                                <div>
+                                    <div class="muted">{{ form.instance.media_type|title }}</div>
+                                    <a href="{{ form.instance.file.url }}" target="_blank">{{ form.instance.file.name }}</a>
+                                </div>
+                                <div>
+                                    <label for="{{ form.position.id_for_label }}">Posicion</label>
+                                    {{ form.position }}
+                                    {{ form.position.errors }}
+                                </div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    {{ form.DELETE }} <label for="{{ form.DELETE.id_for_label }}" class="muted">Eliminar</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="muted" style="margin:0;">No hay medios asociados.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
         <div style="display:flex; gap:8px; align-items:center;">
             {{ form.is_active }} <label for="{{ form.is_active.id_for_label }}" style="font-weight:400;">Activo</label>
             {{ form.is_active.errors }}
